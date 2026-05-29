@@ -806,7 +806,7 @@ static int parse_options(struct super_block *sb, char *options, bool is_remount)
 				return -ENOMEM;
 
 			if (!strcmp(name, "default")) {
-				F2FS_OPTION(sbi).alloc_mode = ALLOC_MODE_DEFAULT;
+				F2FS_OPTION(sbi).alloc_mode = ALLOC_MODE_REUSE;
 			} else if (!strcmp(name, "reuse")) {
 				F2FS_OPTION(sbi).alloc_mode = ALLOC_MODE_REUSE;
 			} else {
@@ -1662,7 +1662,7 @@ static void default_options(struct f2fs_sb_info *sbi)
 	F2FS_OPTION(sbi).active_logs = NR_CURSEG_TYPE;
 	F2FS_OPTION(sbi).inline_xattr_size = DEFAULT_INLINE_XATTR_ADDRS;
 	F2FS_OPTION(sbi).whint_mode = WHINT_MODE_OFF;
-	F2FS_OPTION(sbi).alloc_mode = ALLOC_MODE_DEFAULT;
+	F2FS_OPTION(sbi).alloc_mode = ALLOC_MODE_REUSE;
 	F2FS_OPTION(sbi).fsync_mode = FSYNC_MODE_POSIX;
 #ifdef CONFIG_FS_ENCRYPTION
 	F2FS_OPTION(sbi).inlinecrypt = false;
@@ -1684,6 +1684,7 @@ static void default_options(struct f2fs_sb_info *sbi)
 	F2FS_OPTION(sbi).unusable_cap = 0;
 	set_opt(sbi, FLUSH_MERGE);
 	set_opt(sbi, DISCARD);
+	set_opt(sbi, PRJQUOTA);
 	if (f2fs_sb_has_blkzoned(sbi))
 		F2FS_OPTION(sbi).fs_mode = FS_MODE_LFS;
 	else
