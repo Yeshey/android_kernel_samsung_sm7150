@@ -107,7 +107,9 @@ jobs:
     needs: [prepare, build]
     if: github.event.inputs.release == 'true'
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
+      
     steps:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
